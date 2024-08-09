@@ -382,47 +382,68 @@
           </div>
         </div>
 
-        <form>
-          <div class="w-full lg:w-2/3 lg:mx-auto">
-            <div class="w-full px-4 mb-8">
-              <label for="name" class="text-base font-bold text-primary"
-                >Nama</label
-              >
-              <input
-                type="text"
-                id="name"
-                class="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary"
-              />
-            </div>
-            <div class="w-full px-4 mb-8">
-              <label for="email" class="text-base font-bold text-primary"
-                >Email</label
-              >
-              <input
-                type="email"
-                id="email"
-                class="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary"
-              />
-            </div>
-            <div class="w-full px-4 mb-8">
-              <label for="message" class="text-base font-bold text-primary"
-                >Pesan</label
-              >
-              <textarea
-                type="text"
-                id="name"
-                class="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary h-32"
-              ></textarea>
-            </div>
-            <div class="w-full px-4">
-              <button
-                class="text-base font-semibold text-white bg-primary py-3 px-8 rounded-full w-full hover:opacity-80 hover:shadow-lg transition duration-500"
-              >
-                Kirim
-              </button>
-            </div>
-          </div>
-        </form>
+       <form id="contactForm">
+  <div class="w-full lg:w-2/3 lg:mx-auto">
+    <div class="w-full px-4 mb-8">
+      <label for="name" class="text-base font-bold text-primary">Nama</label>
+      <input
+        type="text"
+        id="name"
+        class="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary"
+      />
+    </div>
+    <div class="w-full px-4 mb-8">
+      <label for="email" class="text-base font-bold text-primary">Email</label>
+      <input
+        type="email"
+        id="email"
+        class="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary"
+      />
+    </div>
+    <div class="w-full px-4 mb-8">
+      <label for="message" class="text-base font-bold text-primary">Pesan</label>
+      <textarea
+        id="message"
+        class="w-full bg-slate-200 text-dark p-3 rounded-md focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary h-32"
+      ></textarea>
+    </div>
+    <div class="w-full px-4">
+      <button
+        type="submit"
+        class="text-base font-semibold text-white bg-primary py-3 px-8 rounded-full w-full hover:opacity-80 hover:shadow-lg transition duration-500"
+      >
+        Kirim
+      </button>
+    </div>
+  </div>
+</form>
+
+<script>
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+
+    const response = await fetch('https://script.google.com/macros/s/AKfycbyNrRey4lG4z6rbX_WUQ0cms5oLFw0-rG-NuXfS-F8-kJlfXwrfyu2oYA201QtVjqBp/exec', {
+      method: 'POST',
+      body: JSON.stringify({ name, email, message }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const result = await response.json();
+    if (result.status === 'success') {
+      alert('Pesan berhasil dikirim!');
+    } else {
+      alert('Terjadi kesalahan, silakan coba lagi.');
+    }
+  });
+</script>
+
       </div>
     </section>
     <!-- Contact Section End -->
